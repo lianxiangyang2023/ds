@@ -13,12 +13,12 @@ urls = [
     "https://fofa.info/result?qbase64=IlpIR1hUViIgJiYgY2l0eT0ic2hpamlhemh1YW5nIg%3D%3D",  #shijiazhuang 石家庄
     "https://fofa.info/result?qbase64=IlpIR1hUViIgJiYgY2l0eT0iaGFuZGFuIg%3D%3D",  # handan 邯郸
     "https://fofa.info/result?qbase64=IlpIR1hUViIgJiYgY2l0eT0iYmFvZGluZyI%3D",  # baoding 保定
-    "https://fofa.info/result?qbase64=IlpIR1hUViIgJiYgY2l0eT0idGFuZ3NoYW4i",  # tangshan 唐山
-    "https://fofa.info/result?qbase64=IlpIR1hUViIgJiYgY2l0eT0iaGVuZ3NodWki",  # henghsui 衡水
+    "https://fofa.info/result?qbase64=IlpIR1hUViIgJiYgY2l0eT0iemhlbmd6aG91Ig==",  # zhengzhou 郑州
+    "https://fofa.info/result?qbase64=IlpIR1hUViIgJiYgY2l0eT0ibHVveWFuZyI=",  # luoyang 洛阳
    # "https://fofa.info/result?qbase64=IlpIR1hUViIgJiYgY2l0eT0ieGluZ3RhaSI%3D",  # xingtai 邢台
-    "https://fofa.info/result?qbase64=IlpIR1hUViIgJiYgY2l0eT0iemhhbmdqaWFrb3Ui",  # zhangjiakou 张家口
-    "https://fofa.info/result?qbase64=IlpIR1hUViIgJiYgY2l0eT0iY2FuZ3pob3Ui",  # cangzhou 沧州
-    "https://fofa.info/result?qbase64=IlpIR1hUViIgJiYgY2l0eT0ibGFuZ2Zhbmci",  # langfang 廊坊
+    "https://fofa.info/result?qbase64=IlpIR1hUViIgJiYgY2l0eT0ia2FpZmVuZyI=",  # kaifeng 开封
+    "https://fofa.info/result?qbase64=IlpIR1hUViIgJiYgY2l0eT0icGluZ2RpbmdzaGFuIg==",  # pingdingshan 平顶山
+    "https://fofa.info/result?qbase64=IlpIR1hUViIgJiYgY2l0eT0ieHVjaGFuZyI=",  # xuchang 许昌
 
 ]
 
@@ -99,7 +99,7 @@ for url in urls:
                                 name = name.replace("CCTV5+体育赛视", "CCTV5+")
                                 name = name.replace("CCTV5+体育赛事", "CCTV5+")
                                 name = name.replace("CCTV5+体育", "CCTV5+")
-                                name = name.replace("河北少儿科教", "河北少儿")
+                                name = name.replace("河南少儿科教", "河南少儿")
                                 if "udp://" not in urld:
                                     results.append(f"{name},{urld}")
                 except:
@@ -126,20 +126,6 @@ result_counter = 8  # 每个频道需要的个数
 
 with open("ds.txt", 'w', encoding='utf-8') as file:
     channel_counters = {}
-    file.write('河北频道,#genre#\n')
-    for result in results:
-        channel_name, channel_url = result.split(',',1)
-        if '河北' in channel_name or '石家庄' in channel_name:
-            if channel_name in channel_counters:
-                if channel_counters[channel_name] >= result_counter:
-                    continue
-                else:
-                    file.write(f"{channel_name},{channel_url}\n")
-                    channel_counters[channel_name] += 1
-            else:
-                file.write(f"{channel_name},{channel_url}\n")
-                channel_counters[channel_name] = 1
-    channel_counters = {}
     file.write('央视频道,#genre#\n')
     for result in results:
         channel_name, channel_url = result.split(',',1)
@@ -154,6 +140,21 @@ with open("ds.txt", 'w', encoding='utf-8') as file:
                 file.write(f"{channel_name},{channel_url}\n")
                 channel_counters[channel_name] = 1
 
+  channel_counters = {}
+    file.write('河南频道,#genre#\n')
+    for result in results:
+        channel_name, channel_url = result.split(',',1)
+        if '河南' in channel_name or '郑州' in channel_name:
+            if channel_name in channel_counters:
+                if channel_counters[channel_name] >= result_counter:
+                    continue
+                else:
+                    file.write(f"{channel_name},{channel_url}\n")
+                    channel_counters[channel_name] += 1
+            else:
+                file.write(f"{channel_name},{channel_url}\n")
+                channel_counters[channel_name] = 1
+    
     channel_counters = {}
     file.write('卫视频道,#genre#\n')
     for result in results:
@@ -172,7 +173,7 @@ with open("ds.txt", 'w', encoding='utf-8') as file:
     file.write('其他频道,#genre#\n')
     for result in results:
         channel_name, channel_url = result.split(',',1)
-        if 'CCTV' not in channel_name and '卫视' not in channel_name and '测试' not in channel_name and '河北' not in channel_name and '石家庄' not in channel_name:
+        if 'CCTV' not in channel_name and '卫视' not in channel_name and '测试' not in channel_name and '河南' not in channel_name and '郑州' not in channel_name:
             if channel_name in channel_counters:
                 if channel_counters[channel_name] >= result_counter:
                     continue
